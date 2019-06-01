@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [Вячеслав Акулов](https://up.htmlacademy.ru/javascript/17/user/909803).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Тимоновский](https://up.htmlacademy.ru/javascript/17/user/768125).
 
 ---
 
