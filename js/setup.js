@@ -15,6 +15,7 @@ var KeyCodes = {
 var setupOpenBtn = document.querySelector('.setup-open');
 var setup = document.querySelector('.setup');
 var setupCloseBtn = setup.querySelector('.setup-close');
+var userNameInput = setup.querySelector('.setup-user-name');
 var setupPlayer = setup.querySelector('.setup-player');
 var coatColorInput = setupPlayer.querySelector('input[name="coat-color"]');
 var eyesColorInput = setupPlayer.querySelector('input[name="eyes-color"]');
@@ -117,13 +118,13 @@ var customizeWizard = function (evt) {
   }
 };
 
-setup.addEventListener('focus', function (evt) {
-  if (evt.target.classList.contains('setup-user-name')) {
-    document.removeEventListener('keydown', onSetupEscPress);
-  } else {
-    document.addEventListener('keydown', onSetupEscPress);
-  }
-}, true);
+userNameInput.addEventListener('focus', function () {
+  document.removeEventListener('keydown', onSetupEscPress);
+});
+
+userNameInput.addEventListener('blur', function () {
+  document.addEventListener('keydown', onSetupEscPress);
+});
 
 setupOpenBtn.addEventListener('click', function () {
   openSetup();
