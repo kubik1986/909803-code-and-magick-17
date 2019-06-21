@@ -12,7 +12,7 @@
   var LINE_HEIGHT = 20;
   var MESSAGE_STRINGS = ['Ура вы победили!', 'Список результатов:'];
   var BAR_WIDTH = 40;
-  var BAR_MAX_HEIGHT = 140; // Поменял на 140, потому что при 150 остается слишком маленький паддинг снизу, ну и по пропорции из скрина в задании выходит 140.
+  var BAR_MAX_HEIGHT = 140;
   var BAR_GAP = 50;
 
   var renderCloud = function (ctx, x, y, color) {
