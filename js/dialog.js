@@ -13,10 +13,16 @@
   var similarList = setupSimilarBlock.querySelector('.setup-similar-list');
   var userNameInput = setup.querySelector('.setup-user-name');
   var dialogHandler = setup.querySelector('.upload');
+  var isError = false;
 
 
   var onSetupEscPress = function (evt) {
-    window.utils.onEscPress(evt, closeSetup);
+    if (isError) {
+      window.utils.onEscPress(evt, window.utils.clearErrors);
+      isError = false;
+    } else {
+      window.utils.onEscPress(evt, closeSetup);
+    }
   };
 
   var onOpenBtnEnterPress = function (evt) {
@@ -25,6 +31,15 @@
 
   var onCloseBtnEnterPress = function (evt) {
     window.utils.onEnterPress(evt, closeSetup);
+  };
+
+  var onWizardsLoad = function (wizards) {
+    window.setup.renderWizardList(wizards);
+  };
+
+  var onWizardsError = function (errorText) {
+    window.utils.showError(errorText);
+    isError = true;
   };
 
   var showSimilarBlock = function () {
@@ -41,9 +56,7 @@
   };
 
   var openSetup = function () {
-    var wizards = window.setup.getWizards();
-
-    window.setup.renderWizardList(wizards);
+    window.backend.load(onWizardsLoad, onWizardsError);
     setup.classList.remove('hidden');
     showSimilarBlock();
 
@@ -55,6 +68,10 @@
     setup.style.left = setupInitPos.left;
     setup.style.top = setupInitPos.top;
     hideSimilarBlock();
+    if (isError) {
+      window.utils.clearErrors();
+      isError = false;
+    }
 
     document.removeEventListener('keydown', onSetupEscPress);
   };
