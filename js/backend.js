@@ -42,7 +42,7 @@
     save: function (data, onLoad, onError) {
       var xhr = xhrSetup(onLoad, onError);
 
-      xhr.open('POST', URL_GET);
+      xhr.open('POST', URL_POST);
       xhr.send(data);
     }
   };
