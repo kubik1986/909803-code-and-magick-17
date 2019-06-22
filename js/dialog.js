@@ -27,6 +27,10 @@
     }
   };
 
+  var onOpenBtnClick = function () {
+    openSetup();
+  };
+
   var onOpenBtnEnterPress = function (evt) {
     window.utils.onEnterPress(evt, openSetup);
   };
@@ -84,6 +88,8 @@
     showSimilarBlock();
 
     document.addEventListener('keydown', onSetupEscPress);
+    setupOpenBtn.removeEventListener('click', onOpenBtnClick);
+    setupOpenBtn.removeEventListener('keydown', onOpenBtnEnterPress);
   };
 
   var closeSetup = function () {
@@ -96,6 +102,8 @@
       isError = false;
     }
 
+    setupOpenBtn.addEventListener('click', onOpenBtnClick);
+    setupOpenBtn.addEventListener('keydown', onOpenBtnEnterPress);
     document.removeEventListener('keydown', onSetupEscPress);
   };
 
@@ -106,9 +114,7 @@
   userNameInput.addEventListener('blur', function () {
     document.addEventListener('keydown', onSetupEscPress);
   });
-  setupOpenBtn.addEventListener('click', function () {
-    openSetup();
-  });
+  setupOpenBtn.addEventListener('click', onOpenBtnClick);
   setupOpenBtn.addEventListener('keydown', onOpenBtnEnterPress);
   setupCloseBtn.addEventListener('click', function () {
     closeSetup();
