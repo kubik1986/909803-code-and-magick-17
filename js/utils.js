@@ -44,8 +44,10 @@
     },
 
     clearErrors: function () {
-      var error = document.querySelector('.net-error');
-      error.parentNode.removeChild(error);
+      var errors = document.querySelectorAll('.net-error');
+      errors.forEach(function (error) {
+        error.remove();
+      });
     },
 
     onEscPress: function (evt, cb) {
