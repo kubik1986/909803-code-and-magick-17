@@ -55,7 +55,7 @@
   };
 
   var onWizardsLoad = function (wizards) {
-    window.setup.renderWizardList(wizards);
+    window.renderWizards(wizards);
   };
 
   var onWizardsError = function (errorText) {
