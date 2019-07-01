@@ -2,10 +2,14 @@
 
 (function () {
 
+  var DEBOUNCE_INTERVAL = 500;
+
   var KeyCodes = {
     ESC: 27,
     ENTER: 13
   };
+
+  var lastTimeout;
 
   window.utils = {
     getRandomArrayItem: function (array) {
@@ -47,6 +51,13 @@
         cb();
       }
     },
+
+    debounce: function (cb) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(cb, DEBOUNCE_INTERVAL);
+    }
   };
 
 })();

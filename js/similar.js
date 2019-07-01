@@ -50,7 +50,7 @@
       wizardElements.forEach(function (element) {
         element.remove();
       });
-      var sortedWizards = this.wizards.slice()
+      var sortedWizards = window.similar.wizards.slice()
         .sort(function (left, right) {
           var rankDiff = getRank(right) - getRank(left);
           if (rankDiff === 0) {

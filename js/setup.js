@@ -17,12 +17,12 @@
       window.setup.coatColor = window.utils.getNextArrayItem(COAT_COLORS, window.setup.coatColor);
       evt.target.style.fill = window.setup.coatColor;
       coatColorInput.value = window.setup.coatColor;
-      window.similar.updateWizards();
+      window.utils.debounce(window.similar.updateWizards);
     } else if (evt.target.classList.contains('wizard-eyes')) {
       window.setup.eyesColor = window.utils.getNextArrayItem(EYES_COLORS, window.setup.eyesColor);
       evt.target.style.fill = window.setup.eyesColor;
       eyesColorInput.value = window.setup.eyesColor;
-      window.similar.updateWizards();
+      window.utils.debounce(window.similar.updateWizards);
     } else if (evt.target.classList.contains('setup-fireball')) {
       window.setup.fireballColor = window.utils.getNextArrayItem(FIREBALL_COLORS, window.setup.fireballColor);
       evt.target.parentNode.style.backgroundColor = window.setup.fireballColor;
