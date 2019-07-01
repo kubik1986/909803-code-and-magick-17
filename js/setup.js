@@ -12,21 +12,21 @@
   var eyesColorInput = setupPlayer.querySelector('input[name="eyes-color"]');
   var fireballColorInput = setupPlayer.querySelector('input[name="fireball-color"]');
 
-
   var customizeWizard = function (evt) {
-    var color;
     if (evt.target.classList.contains('wizard-coat')) {
-      color = window.utils.getRandomArrayItem(COAT_COLORS);
-      evt.target.style.fill = color;
-      coatColorInput.value = color;
+      window.setup.coatColor = window.utils.getNextArrayItem(COAT_COLORS, window.setup.coatColor);
+      evt.target.style.fill = window.setup.coatColor;
+      coatColorInput.value = window.setup.coatColor;
+      window.similar.updateWizards();
     } else if (evt.target.classList.contains('wizard-eyes')) {
-      color = window.utils.getRandomArrayItem(EYES_COLORS);
-      evt.target.style.fill = color;
-      eyesColorInput.value = color;
+      window.setup.eyesColor = window.utils.getNextArrayItem(EYES_COLORS, window.setup.eyesColor);
+      evt.target.style.fill = window.setup.eyesColor;
+      eyesColorInput.value = window.setup.eyesColor;
+      window.similar.updateWizards();
     } else if (evt.target.classList.contains('setup-fireball')) {
-      color = window.utils.getRandomArrayItem(FIREBALL_COLORS);
-      evt.target.parentNode.style.backgroundColor = color;
-      fireballColorInput.value = color;
+      window.setup.fireballColor = window.utils.getNextArrayItem(FIREBALL_COLORS, window.setup.fireballColor);
+      evt.target.parentNode.style.backgroundColor = window.setup.fireballColor;
+      fireballColorInput.value = window.setup.fireballColor;
     }
   };
 
@@ -34,5 +34,12 @@
   setupPlayer.addEventListener('click', function (evt) {
     customizeWizard(evt);
   });
+
+  window.setup = {
+    coatColor: 'rgb(101, 137, 164)',
+    eyesColor: 'black',
+    fireballColor: '#ee4830',
+    artifacts: []
+  };
 
 })();

@@ -10,18 +10,16 @@
   var setupOpenBtn = document.querySelector('.setup-open');
   var setupCloseBtn = setup.querySelector('.setup-close');
   var setupSimilarBlock = setup.querySelector('.setup-similar');
-  var similarList = setupSimilarBlock.querySelector('.setup-similar-list');
   var userNameInput = setup.querySelector('.setup-user-name');
   var dialogHandle = setup.querySelector('.upload');
   var form = setup.querySelector('.setup-wizard-form');
   var formSubmit = form.querySelector('.setup-submit');
-  var isError = false;
 
 
   var onSetupEscPress = function (evt) {
-    if (isError) {
-      window.utils.onEscPress(evt, window.utils.clearErrors);
-      isError = false;
+    if (window.alerts.isError) {
+      window.utils.onEscPress(evt, window.alerts.clearErrors);
+      window.alerts.isError = false;
     } else {
       window.utils.onEscPress(evt, closeSetup);
     }
@@ -42,9 +40,9 @@
   var onFormSubmit = function (evt) {
     evt.preventDefault();
 
-    if (isError) {
-      window.utils.clearErrors();
-      isError = false;
+    if (window.alerts.isError) {
+      window.alerts.clearErrors();
+      window.alerts.isError = false;
     }
 
     formSubmit.disabled = true;
@@ -54,52 +52,32 @@
     }, onSubmitError);
   };
 
-  var onWizardsLoad = function (wizards) {
-    window.renderWizards(wizards);
-  };
-
-  var onWizardsError = function (errorText) {
-    window.utils.showError(errorText);
-    isError = true;
-  };
-
   var onSubmitError = function (errorText) {
-    window.utils.showError(errorText);
-    isError = true;
+    window.alerts.showError(errorText);
+    window.alerts.isError = true;
     formSubmit.disabled = false;
   };
 
-  var showSimilarBlock = function () {
-    setupSimilarBlock.classList.remove('hidden');
-  };
-
-  var hideSimilarBlock = function () {
-    setupSimilarBlock.classList.add('hidden');
-    var last = similarList.lastChild;
-    while (last) {
-      similarList.removeChild(last);
-      last = similarList.lastChild;
-    }
-  };
-
   var openSetup = function () {
-    window.backend.load(onWizardsLoad, onWizardsError);
     setup.classList.remove('hidden');
-    showSimilarBlock();
+    setupSimilarBlock.classList.remove('hidden');
 
     document.addEventListener('keydown', onSetupEscPress);
     setupOpenBtn.removeEventListener('click', onOpenBtnClick);
     setupOpenBtn.removeEventListener('keydown', onOpenBtnEnterPress);
+
+    if (window.similar.wizards.length === 0) {
+      window.similar.loadWizards();
+    }
   };
 
   var closeSetup = function () {
     setup.classList.add('hidden');
     setup.style.left = setupInitPos.left;
     setup.style.top = setupInitPos.top;
-    hideSimilarBlock();
-    if (isError) {
-      window.utils.clearErrors();
-      isError = false;
+    if (window.alerts.isError) {
+      window.alerts.clearErrors();
+      window.alerts.isError = false;
     }
 
     setupOpenBtn.addEventListener('click', onOpenBtnClick);

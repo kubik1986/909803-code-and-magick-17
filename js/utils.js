@@ -12,6 +12,19 @@
       return array[Math.floor(Math.random() * array.length)];
     },
 
+    getNextArrayItem: function (array, currentItem) {
+      var currentIndex = array.indexOf(currentItem);
+      if (currentIndex === -1) {
+        return array[0];
+      }
+      var nextIndex = currentIndex + 1;
+      if (nextIndex > (array.length - 1)) {
+        nextIndex = 0;
+      }
+
+      return array[nextIndex];
+    },
+
     shuffleArray: function (array) {
       for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -21,33 +34,6 @@
       }
 
       return array;
-    },
-
-    showError: function (errorText) {
-      var errorElement = document.createElement('div');
-      var styles = [
-        'z-index: 100',
-        'position: absolute',
-        'left: 0',
-        'right: 0',
-        'top: 0',
-        'padding: 10px',
-        'font-size: 30px',
-        'text-align: center',
-        'background-color: red'
-      ];
-
-      errorElement.classList.add('net-error');
-      errorElement.style = styles.join(';');
-      errorElement.textContent = errorText;
-      document.body.insertAdjacentElement('afterbegin', errorElement);
-    },
-
-    clearErrors: function () {
-      var errors = document.querySelectorAll('.net-error');
-      errors.forEach(function (error) {
-        error.remove();
-      });
     },
 
     onEscPress: function (evt, cb) {
