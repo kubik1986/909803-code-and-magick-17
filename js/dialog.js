@@ -12,7 +12,7 @@
   var setupSimilarBlock = setup.querySelector('.setup-similar');
   var similarList = setupSimilarBlock.querySelector('.setup-similar-list');
   var userNameInput = setup.querySelector('.setup-user-name');
-  var dialogHandler = setup.querySelector('.upload');
+  var dialogHandle = setup.querySelector('.upload');
   var form = setup.querySelector('.setup-wizard-form');
   var formSubmit = form.querySelector('.setup-submit');
   var isError = false;
@@ -122,7 +122,7 @@
   setupCloseBtn.addEventListener('keydown', onCloseBtnEnterPress);
   form.addEventListener('submit', onFormSubmit);
 
-  dialogHandler.addEventListener('mousedown', function (evt) {
+  dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -158,10 +158,10 @@
       if (isDragged) {
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
-          dialogHandler.removeEventListener('click', onClickPreventDefault);
+          dialogHandle.removeEventListener('click', onClickPreventDefault);
         };
 
-        dialogHandler.addEventListener('click', onClickPreventDefault);
+        dialogHandle.addEventListener('click', onClickPreventDefault);
       }
     };
 
