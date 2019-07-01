@@ -11,7 +11,7 @@
   };
 
   var onWizardsError = function (errorText) {
-    window.alerts.showError(errorText);
+    window.alerts.showError('Не удалось загрузить список похожих волшебников. ' + errorText);
     window.alerts.isError = true;
   };
 
