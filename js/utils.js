@@ -2,14 +2,31 @@
 
 (function () {
 
+  var DEBOUNCE_INTERVAL = 500;
+
   var KeyCodes = {
     ESC: 27,
     ENTER: 13
   };
 
+  var lastTimeout;
+
   window.utils = {
     getRandomArrayItem: function (array) {
       return array[Math.floor(Math.random() * array.length)];
+    },
+
+    getNextArrayItem: function (array, currentItem) {
+      var currentIndex = array.indexOf(currentItem);
+      if (currentIndex === -1) {
+        return array[0];
+      }
+      var nextIndex = currentIndex + 1;
+      if (nextIndex > (array.length - 1)) {
+        nextIndex = 0;
+      }
+
+      return array[nextIndex];
     },
 
     shuffleArray: function (array) {
@@ -23,33 +40,6 @@
       return array;
     },
 
-    showError: function (errorText) {
-      var errorElement = document.createElement('div');
-      var styles = [
-        'z-index: 100',
-        'position: absolute',
-        'left: 0',
-        'right: 0',
-        'top: 0',
-        'padding: 10px',
-        'font-size: 30px',
-        'text-align: center',
-        'background-color: red'
-      ];
-
-      errorElement.classList.add('net-error');
-      errorElement.style = styles.join(';');
-      errorElement.textContent = errorText;
-      document.body.insertAdjacentElement('afterbegin', errorElement);
-    },
-
-    clearErrors: function () {
-      var errors = document.querySelectorAll('.net-error');
-      errors.forEach(function (error) {
-        error.remove();
-      });
-    },
-
     onEscPress: function (evt, cb) {
       if (evt.keyCode === KeyCodes.ESC) {
         cb();
@@ -61,6 +51,13 @@
         cb();
       }
     },
+
+    debounce: function (cb) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(cb, DEBOUNCE_INTERVAL);
+    }
   };
 
 })();
